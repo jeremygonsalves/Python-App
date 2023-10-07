@@ -1,0 +1,296 @@
+import openpyxl
+
+# Open the workbook
+workbook = openpyxl.Workbook()
+
+# Add a new sheet with the given name
+def add_sheet(name):
+    workbook.create_sheet(title=name)
+
+# Add data to a specific sheet
+def add_data_to_sheet(sheet_name, data):
+    sheet = workbook[sheet_name]
+    for row in data:
+        sheet.append(row)
+
+# Add the total budget sheet
+def add_total_budget_sheet():
+    sheet = workbook.create_sheet(title="Total Budget")
+    sheet.append(["Category", "Total Cost"])
+
+    # Iterate over all sheets except the "Total Budget" sheet
+    for sheet_name in workbook.sheetnames[:-1]:
+        # Get the sheet by name
+        sheet = workbook[sheet_name]
+
+        # Calculate the total cost for each category
+        total_cost = {
+            "Flight and Transport": "=SUM(C2:C)",
+            "Food and Drink": "=SUM(D2:D)",
+            "Leisure": "=SUM(E2:E)"
+        }
+
+        # Append the category and total cost to the "Total Budget" sheet
+        for category, formula in total_cost.items():
+            sheet_total_cost = sheet[formula].value
+            sheet.append([category, sheet_total_cost])
+            
+            
+            
+add_sheet("Croatia")
+add_sheet("France")
+add_sheet("Spain")
+add_sheet("Turkey")
+add_sheet("Montenegro")
+add_sheet("Portugal")
+add_sheet("Greece")
+add_sheet("Croatia")
+add_sheet("Czech Republic")
+add_sheet("Germany")
+add_sheet("Sweden")
+add_sheet("Thailand")
+add_sheet("Australia")
+add_sheet("Denmark")
+
+
+        
+# Turkey data
+
+turkey_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost", "Restaurant Recommendations"],
+    ["Day 1", "Istanbul", "Visit Hagia Sophia, Blue Mosque, Topkapi Palace", "$0", "$30", "$20", "Deraliye Ottoman Cuisine, Meze By Lemon Tree, Çiya Sofrası"],
+    ["Day 2", "Istanbul", "Explore Grand Bazaar, Bosphorus Cruise, Spice Bazaar", "$10", "$40", "$30", "Sultanahmet Köftecisi, Karaköy Güllüoğlu, Asitane"],
+    ["Day 3", "Cappadocia", "Hot air balloon ride, Göreme Open Air Museum, Underground City", "$150", "$30", "$20", "Dibek Restaurant, Old Cappadocia Cafe & Restaurant, Aşkın Restaurant"],
+    ["Day 4", "Cappadocia", "Hike through Rose Valley, ATV tour, Turkish Night Show", "$30", "$40", "$30", "Ziggy's Shoppe & Cafe, Top Deck Cave Restaurant, Dibek Wine Cellar"],
+    ["Day 5", "Pamukkale", "Visit Hierapolis, Pamukkale Thermal Pools, Cleopatra's Pool", "$50", "$30", "$20", "Koreli Restaurant, Hasan Restaurant, Pamukkale Kitchen"],
+    ["Day 6", "Pamukkale", "Explore Travertine Terraces, Ancient Amphitheater, Ancient Pool", "$10", "$40", "$30", "Mehmet & Ali Baba Kebab House, Kardesler Pide, Sinter Teras Restaurant"],
+    ["Day 7", "Departure from Turkey", "Fly from Istanbul to Montenegro", "$400", "$0", "$0", "-"],
+]
+
+# Add Turkey data to sheet
+add_data_to_sheet("Turkey", turkey_data)
+
+# Montenegro data
+
+montenegro_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost", "Restaurant Recommendations"],
+    ["Day 8", "Kotor", "Explore Kotor Old Town, Climb the City Walls, Visit St. Tryphon Cathedral", "$0", "$30", "$20", "Konoba Trpeza, Bastion, Galion"],
+    ["Day 9", "Budva", "Relax on Budva's Beaches, Explore Old Town, Visit Mogren Beach", "$10", "$40", "$30", "Jadran Kod Krsta, Galeria, Porto"],
+    ["Day 10", "Sveti Stefan", "Visit the Island of Sveti Stefan, Enjoy the Beaches and Scenic Views", "$20", "$30", "$20", "Konoba Arabela, Olive Restaurant, Adrovic"],
+    ["Day 11", "Departure from Montenegro", "Fly from Podgorica to Bangkok", "$500", "$0", "$0", "-"],
+]
+
+# Add Montenegro data to sheet
+add_data_to_sheet("Montenegro", montenegro_data)
+
+
+# France data
+add_sheet("France")
+france_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost", "Restaurant Recommendations"],
+    ["Day 1", "Nice", "Explore Old Town, Promenade des Anglais, Musée Matisse", "$10", "$30", "$20", "Poco Loco, Chez Acchiardo, Lou Pilha Leva"],
+    ["Day 2", "Nice", "Day trip to Monaco, Prince's Palace, Monte Carlo Casino", "$20", "$40", "$30", "-"],
+    ["Day 3", "Marseille", "Vieux Port, Basilique Notre-Dame de la Garde, Boat tour to Calanques", "$30", "$40", "$20", "L'Épuisette, Chez Toinou, Le Café des Épices"],
+    ["Day 4", "Marseille", "Le Panier neighborhood, MuCEM, Enjoy local cuisine", "$0", "$30", "$30", "-"],
+    ["Day 5", "St. Tropez", "Explore old town, Pampelonne beaches, Musée de l'Annonciade", "$50", "$50", "$15", "La Pesquière, Le Sporting, Le Café Sénéquier"],
+    ["Day 6", "St. Tropez", "Yacht tour, Port Grimaud, Nightlife in St. Tropez", "$0", "$60", "$40", "-"],
+    ["Day 7", "Departure to Spain", "Travel from St. Tropez to Barcelona", "$100", "$0", "$0", "-"],
+    ["", "", "", "=SUM(C2:C7)", "=SUM(D2:D7)", "=SUM(E2:E7)", ""]
+]
+
+# Add France data to sheet
+add_data_to_sheet("France", france_data)
+
+# Spain data
+spain_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost", "Restaurant Recommendations"],
+    ["Day 1", "Barcelona", "Explore Park Güell, La Sagrada Família, Gothic Quarter", "$0", "$30", "$20", "Tickets, El Nacional, La Boqueria"],
+    ["Day 2", "Barcelona", "Visit Casa Batlló, Montjuïc Hill, Barceloneta Beach", "$10", "$40", "$30", "Can Paixano, Bodega 1900, Quimet & Quimet"],
+    ["Day 3", "Granada", "Alhambra Palace, Generalife Gardens, Albayzín Quarter", "$50", "$30", "$20", "El Trillo, Los Diamantes, Bar Los Caracoles"],
+    ["Day 4", "Granada", "Explore Sacromonte, Royal Chapel, Tapas tour", "$20", "$40", "$30", "La Tana, La Cueva de 1900, Bodegas Castañeda"],
+    ["Day 5", "Madrid", "Visit Prado Museum, Royal Palace, Retiro Park", "$30", "$30", "$20", "Mercado de San Miguel, El Sur, Taberna La Dolores"],
+    ["Day 6", "Madrid", "Explore Puerta del Sol, Plaza Mayor, Flamenco show", "$10", "$40", "$30", "Botín, Casa Labra, Malaspina"],
+    ["Day 7", "Departure to Thailand", "Fly from Madrid to Bangkok", "$400", "$0", "$0", "-"],
+    ["", "", "", "=SUM(C2:C7)", "=SUM(D2:D7)", "=SUM(E2:E7)", ""]
+]
+
+# Add Spain data to sheet
+add_data_to_sheet("Spain", spain_data)
+
+
+# Portugal data
+
+portugal_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 12", "Lisbon", "Explore Alfama, Belem Tower, Jeronimos Monastery", "$200", "$40", "$30"],
+    ["Day 13", "Sintra", "Visit Pena Palace, Quinta da Regaleira, Moorish Castle", "$20", "$30", "$20"],
+    ["Day 14", "Porto", "Tour the Port Wine Cellars, Walk across Dom Luis I Bridge", "$50", "$40", "$30"],
+    ["Day 15", "Departure from Portugal", "Fly from Lisbon to Athens", "$300", "$0", "$0"],
+]
+
+# Add Portugal data to sheet
+add_data_to_sheet("Portugal", portugal_data)
+
+# Greece data
+
+greece_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 16", "Athens", "Visit Acropolis, Parthenon, Plaka Neighborhood", "$0", "$30", "$20"],
+    ["Day 17", "Santorini", "Explore Oia, Fira, Red Beach", "$50", "$40", "$30"],
+    ["Day 18", "Mykonos", "Enjoy Mykonos Town, Paradise Beach, Delos Island", "$50", "$30", "$20"],
+    ["Day 19", "Departure from Greece", "Fly from Athens to Dubrovnik", "$400", "$0", "$0"],
+]
+
+# Add Greece data to sheet
+add_data_to_sheet("Greece", greece_data)
+
+# Croatia data
+
+croatia_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 20", "Dubrovnik", "Walk the City Walls, Visit Fort Lovrijenac, Explore Lokrum Island", "$0", "$30", "$20"],
+    ["Day 21", "Split", "Discover Diocletian's Palace, Visit Marjan Hill, Enjoy the Riva Promenade", "$50", "$40", "$30"],
+    ["Day 22", "Plitvice Lakes", "Experience the National Park, Hike the Trails, See the Waterfalls", "$100", "$30", "$20"],
+    ["Day 23", "Departure from Croatia", "Fly from Split to Rome", "$300", "$0", "$0"],
+]
+
+# Add Croatia data to sheet
+add_data_to_sheet("Croatia", croatia_data)
+
+
+# # Montenegro d
+
+# Czech Republic data
+czech_republic_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    # Add your Czech Republic data here
+]
+
+# Czech Republic data
+czech_republic_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 24", "Prague", "Visit Prague Castle, Charles Bridge, Old Town Square", "$200", "$30", "$20"],
+    ["Day 25", "Český Krumlov", "Explore Český Krumlov Castle, Walk around the Old Town", "$50", "$40", "$30"],
+]
+
+# Add Czech Republic data to sheet
+add_data_to_sheet("Czech Republic", czech_republic_data)
+
+# Austria data
+austria_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 26", "Vienna", "Visit Schönbrunn Palace, St. Stephen's Cathedral, Belvedere Palace", "$150", "$30", "$20"],
+    ["Day 27", "Salzburg", "Explore Mirabell Palace, Hohensalzburg Fortress, Sound of Music tour", "$100", "$40", "$30"],
+]
+
+# Add Austria data to sheet
+add_data_to_sheet("Austria", austria_data)
+
+# Germany data
+germany_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 28", "Berlin", "Visit Brandenburg Gate, Reichstag Building, Museum Island", "$300", "$30", "$20"],
+    ["Day 29", "Munich", "Explore Marienplatz, Nymphenburg Palace, Hofbräuhaus", "$200", "$40", "$30"],
+    ["Day 30", "Cologne", "Visit Cologne Cathedral, Old Town, Chocolate Museum", "$100", "$30", "$20"],
+]
+
+# Add Germany data to sheet
+add_data_to_sheet("Germany", germany_data)
+
+
+# Hungary data
+hungary_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 33", "Budapest", "Explore Buda Castle, Fisherman's Bastion, Széchenyi Thermal Bath", "$250", "$35", "$25"],
+    ["Day 34", "Budapest", "Visit Hungarian Parliament, St. Stephen's Basilica, Margaret Island", "$200", "$30", "$20"],
+]
+
+# Add Hungary data to sheet
+add_data_to_sheet("Hungary", hungary_data)
+
+# Netherlands data
+netherlands_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 35", "Amsterdam", "Visit Anne Frank House, Van Gogh Museum, Rijksmuseum", "$300", "$40", "$30"],
+    ["Day 36", "Amsterdam", "Explore Jordaan District, Vondelpark, Heineken Experience", "$200", "$35", "$25"],
+    ["Day 37", "Rotterdam", "Discover Markthal, Erasmus Bridge, Euromast", "$150", "$30", "$20"],
+    ["Day 38", "The Hague", "Visit Mauritshuis, Binnenhof, Scheveningen Beach", "$150", "$30", "$20"],
+]
+
+# Add Netherlands data to sheet
+add_data_to_sheet("Netherlands", netherlands_data)
+
+# Denmark data
+denmark_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 39", "Copenhagen", "Explore Tivoli Gardens, Nyhavn, The Little Mermaid Statue", "$300", "$40", "$30"],
+    ["Day 40", "Copenhagen", "Visit Christiansborg Palace, Amalienborg, National Museum of Denmark", "$200", "$35", "$25"],
+    ["Day 41", "Aarhus", "Discover ARoS Aarhus Art Museum, Den Gamle By, Aarhus Cathedral", "$200", "$35", "$25"],
+    ["Day 42", "Odense", "Explore Hans Christian Andersen Museum, Odense Zoo", "$150", "$30", "$20"],
+]
+
+# Add Denmark data to sheet
+add_data_to_sheet("Denmark", denmark_data)
+
+# Sweden data
+sweden_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 43", "Stockholm", "Explore Gamla Stan, Vasa Museum, Skansen Open-Air Museum", "$300", "$40", "$30"],
+    ["Day 44", "Stockholm", "Visit Royal Palace, ABBA Museum, Drottningholm Palace", "$200", "$35", "$25"],
+    ["Day 45", "Gothenburg", "Discover Liseberg Amusement Park, Universeum, Haga District", "$150", "$30", "$20"],
+    ["Day 46", "Malmö", "Explore Øresund Bridge, Turning Torso, Malmö Castle", "$150", "$30", "$20"],
+    ["Day 47", "Visby", "Visit Visby City Wall, Gotland Museum, St. Mary's Cathedral", "$200", "$35", "$25"],
+]
+
+# Add Sweden data to sheet
+add_data_to_sheet("Sweden", sweden_data)
+
+# Thailand data
+thailand_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 48", "Bangkok", "Visit Grand Palace, Wat Arun, Chatuchak Weekend Market", "$400", "$50", "$40"],
+    ["Day 49", "Bangkok", "Explore Wat Phra Kaew, Wat Pho, Jim Thompson House", "$300", "$40", "$30"],
+    ["Day 50", "Phuket", "Relax on Patong Beach, Phi Phi Islands Tour, Big Buddha", "$500", "$50", "$40"],
+    ["Day 51", "Chiang Mai", "Discover Doi Suthep, Old City Temples, Elephant Nature Park", "$400", "$45", "$35"],
+    ["Day 52", "Krabi", "Enjoy Railay Beach, Four Islands Tour, Tiger Cave Temple", "$450", "$45", "$35"],
+    ["Day 53", "Koh Samui", "Relax on Chaweng Beach, Ang Thong Marine Park, Big Buddha Temple", "$400", "$45", "$35"],
+    ["Day 54", "Bangkok", "Explore Floating Markets, Chinatown, Ayutthaya Historical Park", "$300", "$40", "$30"],
+]
+
+# Add Thailand data to sheet
+add_data_to_sheet("Thailand", thailand_data)
+
+# Australia data
+# Australia data (14 days)
+australia_data = [
+    ["Date", "Location", "Activities", "Flight and Transport Cost", "Food and Drink Cost", "Leisure Cost"],
+    ["Day 55", "Sydney", "Visit Sydney Opera House, Bondi Beach, Blue Mountains", "$500", "$50", "$40"],
+    ["Day 56", "Sydney", "Explore Darling Harbour, Royal Botanic Garden, Taronga Zoo", "$300", "$40", "$30"],
+    ["Day 57", "Melbourne", "Discover Federation Square, Queen Victoria Market, Great Ocean Road", "$500", "$50", "$40"],
+    ["Day 58", "Melbourne", "Visit Royal Exhibition Building, National Gallery of Victoria, St Kilda Beach", "$300", "$40", "$30"],
+    ["Day 59", "Brisbane", "Explore South Bank Parklands, Lone Pine Koala Sanctuary, Story Bridge", "$400", "$45", "$35"],
+    ["Day 60", "Gold Coast", "Enjoy Surfers Paradise, Dreamworld, Currumbin Wildlife Sanctuary", "$450", "$45", "$35"],
+    ["Day 61", "Cairns", "Discover Great Barrier Reef, Daintree Rainforest, Kuranda Village", "$500", "$50", "$40"],
+    ["Day 62", "Cairns", "Explore Cairns Esplanade, Palm Cove, Tjapukai Aboriginal Cultural Park", "$300", "$40", "$30"],
+    ["Day 63", "Sydney", "Visit Sydney Tower Eye, The Rocks, Sea Life Sydney Aquarium", "$200", "$30", "$20"],
+    ["Day 64", "Melbourne", "Discover Yarra River, Eureka Skydeck 88, Melbourne Cricket Ground", "$250", "$35", "$25"],
+    ["Day 65", "Brisbane", "Explore City Botanic Gardens, Queensland Museum, Wheel of Brisbane", "$200", "$30", "$20"],
+    ["Day 66", "Gold Coast", "Enjoy Burleigh Heads Beach, Springbrook National Park, Tamborine Mountain", "$250", "$35", "$25"],
+    ["Day 67", "Cairns", "Discover Cairns Botanic Gardens, Skyrail Rainforest Cableway, Cairns Zoom and Wildlife Dome", "$200", "$30", "$20"],
+    ["Day 68", "Sydney", "Visit The Royal Botanic Garden, Sydney Observatory, Chinatown", "$200", "$30", "$20"],
+]
+
+# Add Australia data to sheet
+add_data_to_sheet("Australia", australia_data)
+
+# Remove the default sheet created with the workbook
+default_sheet = workbook["Sheet"]
+workbook.remove(default_sheet)
+
+add_total_budget_sheet()
+
+# Save the workbook
+workbook.save("Euro-asia_trip_2024.xlsx")
+
+# Print message when the Excel file is generated
+print("Excel file 'Euro-asia_trip_2024.xlsx' has been generated successfully.")
